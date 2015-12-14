@@ -1,7 +1,59 @@
 package com.amaydanskiy.integration;
 
-/**
- * Created by amaydanskiy on 14.12.2015.
- */
+import com.amaydanskiy.Skill;
+import com.amaydanskiy.SkillRepository;
+import com.amaydanskiy.integration.configuration.RepositoryConfiguration;
+import org.junit.Assert;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import java.util.Iterator;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@SpringApplicationConfiguration(classes = {RepositoryConfiguration.class})
 public class SkillRepositoryITest {
+
+    private SkillRepository skillRepository;
+
+    @Autowired
+    public void setSkillRepository(SkillRepository skillRepository){
+        this.skillRepository = skillRepository;
+    }
+
+    @Test
+    public void testSaveSkill(){
+        Skill skill = new Skill();
+        skill.setLabel("testLabel");
+        skill.setDescription("testDescription");
+
+        Assert.assertNull(skill.getId());
+        skillRepository.save(skill);
+        Assert.assertNotNull(skill.getId());
+
+        Skill fetchedSkill = skillRepository.findOne(skill.getId());
+        Assert.assertNotNull(fetchedSkill);
+
+        Assert.assertEquals(fetchedSkill.getId(), skill.getId());
+        Assert.assertEquals(fetchedSkill.getLabel(), skill.getLabel());
+        Assert.assertEquals(fetchedSkill.getDescription(), skill.getDescription());
+
+        fetchedSkill.setLabel("abcdefg");
+        skillRepository.save(fetchedSkill);
+
+        Skill fetchedUpdatedSkill = skillRepository.findOne(fetchedSkill.getId());
+        Assert.assertEquals(fetchedUpdatedSkill.getLabel(), fetchedSkill.getLabel());
+
+        long skillCount = skillRepository.count();
+        Assert.assertEquals(skillCount, 1);
+
+        long count = 0;
+        Iterable <Skill> skills = skillRepository.findAll();
+        for (Skill s : skills){
+            count++;
+        }
+        Assert.assertEquals(count, 1);
+    }
 }

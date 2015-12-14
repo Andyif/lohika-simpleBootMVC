@@ -21,7 +21,7 @@ public class Developer {
     public Developer() {
     }
 
-    public Developer(long id, String firstName, String lastName, String email, List<Skill> skills) {
+    public Developer(Long id, String firstName, String lastName, String email, List<Skill> skills) {
         this.id = id;
         this.firstName  = firstName;
         this.lastName   = lastName;

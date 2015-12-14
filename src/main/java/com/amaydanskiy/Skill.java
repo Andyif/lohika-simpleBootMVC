@@ -9,20 +9,20 @@ public class Skill {
 
     @Id
     @GeneratedValue
-    private long    id;
+    private Long    id;
     private String  label;
     private String  description;
 
     public Skill() {
     }
 
-    public Skill(long id, String label, String description) {
+    public Skill(Long id, String label, String description) {
         this.id             = id;
         this.label          = label;
         this.description    = description;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
