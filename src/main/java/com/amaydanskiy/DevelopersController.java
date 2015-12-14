@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
 @Controller
 public class DevelopersController {
@@ -44,8 +45,19 @@ public class DevelopersController {
     }
 
     @RequestMapping(value="/developer/{id}/skills", method=RequestMethod.POST)
-    public String developersAddSkill(@PathVariable Long id, @RequestParam Long skillId, Model model) {
-        Skill skill = skillRepository.findOne(skillId);
+    public String developersAddSkill(@PathVariable Long id, @RequestParam(required = false) Long skillId, Model model) {
+
+        Skill skill;
+
+        System.out.println(skillId);
+
+
+        if (skillId !=null){
+            skill = skillRepository.findOne(skillId);
+        }else {
+            model.addAttribute("skills", skillRepository.findAll());
+            return "redirect:/skills";
+        }
         Developer developer = developerRepository.findOne(id);
 
         if (developer != null) {
@@ -60,5 +72,16 @@ public class DevelopersController {
 
         model.addAttribute("developers", developerRepository.findAll());
         return "redirect:/developers";
+    }
+
+    @RequestMapping(value = "/skills")
+    public String skillsAdd(@RequestParam(required = false) String label, @RequestParam(required = false) String description, Model model){
+        Skill skill = new Skill();
+        skill.setLabel(label);
+        skill.setDescription(description);
+        skillRepository.save(skill);
+
+        model.addAttribute("skills", skillRepository.findAll());
+        return "/skills";
     }
 }
