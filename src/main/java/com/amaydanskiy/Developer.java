@@ -11,7 +11,7 @@ public class Developer {
 
     @Id
     @GeneratedValue
-    private long        id;
+    private Long        id;
     private String      firstName;
     private String      lastName;
     private String      email;
@@ -29,7 +29,7 @@ public class Developer {
         this.skills     = skills;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
