@@ -49,9 +49,6 @@ public class DevelopersController {
 
         Skill skill;
 
-        System.out.println(skillId);
-
-
         if (skillId !=null){
             skill = skillRepository.findOne(skillId);
         }else {
@@ -75,7 +72,8 @@ public class DevelopersController {
     }
 
     @RequestMapping(value = "/skills")
-    public String skillsAdd(@RequestParam(required = false) String label, @RequestParam(required = false) String description, Model model){
+    public String skillsAdd(@RequestParam(required = false) String label,
+                            @RequestParam(required = false) String description, Model model){
         Skill skill = new Skill();
         skill.setLabel(label);
         skill.setDescription(description);
