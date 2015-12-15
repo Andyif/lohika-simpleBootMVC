@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = {RepositoryConfiguration.class})
-public class DeveloperRepositoryITest {
+public class DeveloperRepositoryIT {
 
     private DeveloperRepository developerRepository;
 
@@ -46,7 +46,18 @@ public class DeveloperRepositoryITest {
         Developer fetchedUpdatedDeveloper = developerRepository.findOne(fetchedDeveloper.getId());
         Assert.assertEquals(fetchedUpdatedDeveloper.getEmail(), fetchedDeveloper.getEmail());
 
+        Developer deleteDeveloper = new Developer();
+        deleteDeveloper.setEmail("simple@mail.com");
+        deleteDeveloper.setFirstName("name");
+        deleteDeveloper.setLastName("lastName");
+        developerRepository.save(deleteDeveloper);
+        Assert.assertNotNull(deleteDeveloper.getId());
+
         long devCount = developerRepository.count();
+        Assert.assertEquals(devCount, 2);
+
+        developerRepository.delete(deleteDeveloper);
+        devCount = developerRepository.count();
         Assert.assertEquals(devCount, 1);
 
         Iterable<Developer> developers = developerRepository.findAll();

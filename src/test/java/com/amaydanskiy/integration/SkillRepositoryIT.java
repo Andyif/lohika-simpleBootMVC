@@ -14,7 +14,7 @@ import java.util.Iterator;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = {RepositoryConfiguration.class})
-public class SkillRepositoryITest {
+public class SkillRepositoryIT {
 
     private SkillRepository skillRepository;
 
@@ -46,7 +46,16 @@ public class SkillRepositoryITest {
         Skill fetchedUpdatedSkill = skillRepository.findOne(fetchedSkill.getId());
         Assert.assertEquals(fetchedUpdatedSkill.getLabel(), fetchedSkill.getLabel());
 
+        Skill deleteSkill = new Skill();
+        deleteSkill.setLabel("label");
+        deleteSkill.setDescription("description");
+        skillRepository.save(deleteSkill);
+        Assert.assertNotNull(deleteSkill.getId());
         long skillCount = skillRepository.count();
+        Assert.assertEquals(skillCount, 2);
+
+        skillRepository.delete(deleteSkill);
+        skillCount = skillRepository.count();
         Assert.assertEquals(skillCount, 1);
 
         long count = 0;
