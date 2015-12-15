@@ -24,7 +24,7 @@ public class SkillRepositoryIT {
     }
 
     @Test
-    public void testSaveSkill(){
+    public void testCRUDSkill(){
         Skill skill = new Skill();
         skill.setLabel("testLabel");
         skill.setDescription("testDescription");

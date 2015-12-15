@@ -22,7 +22,7 @@ public class DeveloperRepositoryIT {
     }
 
     @Test
-    public void testSaveDeveloper(){
+    public void testCRUDDeveloper(){
         Developer developer = new Developer();
         developer.setEmail("test@mail.com");
         developer.setFirstName("testFirstName");
