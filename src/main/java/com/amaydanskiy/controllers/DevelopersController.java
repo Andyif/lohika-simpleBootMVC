@@ -1,5 +1,9 @@
-package com.amaydanskiy;
+package com.amaydanskiy.controllers;
 
+import com.amaydanskiy.model.Developer;
+import com.amaydanskiy.model.Skill;
+import com.amaydanskiy.repository.DeveloperRepository;
+import com.amaydanskiy.repository.SkillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +22,7 @@ public class DevelopersController {
     SkillRepository skillRepository;
 
     @RequestMapping(value = "/developers/{id}", method = RequestMethod.GET)
-    public String developer(@PathVariable Long id, Model model){
+    public String editDeveloper(@PathVariable Long id, Model model){
         model.addAttribute("developer", developerRepository.findOne(id));
         model.addAttribute("skills", skillRepository.findAll());
         return "developers";
@@ -31,7 +35,7 @@ public class DevelopersController {
     }
 
     @RequestMapping(value="/developers", method = RequestMethod.POST)
-    public String developersAdd(@RequestParam String email,     @RequestParam String firstName,
+    public String addDeveloper(@RequestParam String email,     @RequestParam String firstName,
                                 @RequestParam String lastName,  Model model){
         Developer newDeveloper = new Developer();
         newDeveloper.setEmail(email);
@@ -49,9 +53,6 @@ public class DevelopersController {
 
         Skill skill;
 
-        System.out.println(skillId);
-
-
         if (skillId !=null){
             skill = skillRepository.findOne(skillId);
         }else {
@@ -65,7 +66,7 @@ public class DevelopersController {
                 developer.getSkills().add(skill);
             }
             developerRepository.save(developer);
-            model.addAttribute("developers", developerRepository.findOne(id));
+            model.addAttribute("developer", developerRepository.findOne(id));
             model.addAttribute("skills", skillRepository.findAll());
             return "redirect:/developers/" + developer.getId();
         }
@@ -75,7 +76,8 @@ public class DevelopersController {
     }
 
     @RequestMapping(value = "/skills")
-    public String skillsAdd(@RequestParam(required = false) String label, @RequestParam(required = false) String description, Model model){
+    public String skillsAdd(@RequestParam(required = false) String label,
+                            @RequestParam(required = false) String description, Model model){
         Skill skill = new Skill();
         skill.setLabel(label);
         skill.setDescription(description);

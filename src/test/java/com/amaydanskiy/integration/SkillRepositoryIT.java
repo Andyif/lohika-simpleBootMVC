@@ -1,7 +1,7 @@
 package com.amaydanskiy.integration;
 
-import com.amaydanskiy.Skill;
-import com.amaydanskiy.SkillRepository;
+import com.amaydanskiy.model.Skill;
+import com.amaydanskiy.repository.SkillRepository;
 import com.amaydanskiy.integration.configuration.RepositoryConfiguration;
 import org.junit.Assert;
 import org.junit.Test;
@@ -10,11 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.Iterator;
-
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = {RepositoryConfiguration.class})
-public class SkillRepositoryITest {
+public class SkillRepositoryIT {
 
     private SkillRepository skillRepository;
 
@@ -24,7 +22,7 @@ public class SkillRepositoryITest {
     }
 
     @Test
-    public void testSaveSkill(){
+    public void testCRUDSkill(){
         Skill skill = new Skill();
         skill.setLabel("testLabel");
         skill.setDescription("testDescription");
@@ -46,7 +44,16 @@ public class SkillRepositoryITest {
         Skill fetchedUpdatedSkill = skillRepository.findOne(fetchedSkill.getId());
         Assert.assertEquals(fetchedUpdatedSkill.getLabel(), fetchedSkill.getLabel());
 
+        Skill deleteSkill = new Skill();
+        deleteSkill.setLabel("label");
+        deleteSkill.setDescription("description");
+        skillRepository.save(deleteSkill);
+        Assert.assertNotNull(deleteSkill.getId());
         long skillCount = skillRepository.count();
+        Assert.assertEquals(skillCount, 2);
+
+        skillRepository.delete(deleteSkill);
+        skillCount = skillRepository.count();
         Assert.assertEquals(skillCount, 1);
 
         long count = 0;
