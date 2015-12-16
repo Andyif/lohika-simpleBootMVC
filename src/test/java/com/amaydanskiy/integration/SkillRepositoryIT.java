@@ -1,7 +1,7 @@
 package com.amaydanskiy.integration;
 
-import com.amaydanskiy.Skill;
-import com.amaydanskiy.SkillRepository;
+import com.amaydanskiy.model.Skill;
+import com.amaydanskiy.repository.SkillRepository;
 import com.amaydanskiy.integration.configuration.RepositoryConfiguration;
 import org.junit.Assert;
 import org.junit.Test;
@@ -9,8 +9,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import java.util.Iterator;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = {RepositoryConfiguration.class})

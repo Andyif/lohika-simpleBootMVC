@@ -1,4 +1,6 @@
-package com.amaydanskiy;
+package com.amaydanskiy.model;
+
+import com.amaydanskiy.model.Skill;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

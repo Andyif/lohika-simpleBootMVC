@@ -1,4 +1,4 @@
-package com.amaydanskiy;
+package com.amaydanskiy.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

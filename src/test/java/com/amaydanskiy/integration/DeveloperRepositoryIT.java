@@ -1,9 +1,9 @@
 package com.amaydanskiy.integration;
 
-import com.amaydanskiy.Developer;
-import com.amaydanskiy.DeveloperRepository;
-import com.amaydanskiy.Skill;
-import com.amaydanskiy.SkillRepository;
+import com.amaydanskiy.model.Developer;
+import com.amaydanskiy.repository.DeveloperRepository;
+import com.amaydanskiy.model.Skill;
+import com.amaydanskiy.repository.SkillRepository;
 import com.amaydanskiy.integration.configuration.RepositoryConfiguration;
 import org.junit.Assert;
 import org.junit.Test;
