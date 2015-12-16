@@ -17,11 +17,11 @@ public class DevelopersController {
     @Autowired
     SkillRepository skillRepository;
 
-    @RequestMapping("/developer/{id}")
+    @RequestMapping(value = "/developers/{id}", method = RequestMethod.GET)
     public String developer(@PathVariable Long id, Model model){
         model.addAttribute("developer", developerRepository.findOne(id));
         model.addAttribute("skills", skillRepository.findAll());
-        return "developer";
+        return "developers";
     }
 
     @RequestMapping(value = "/developers",method = RequestMethod.GET)
@@ -41,10 +41,10 @@ public class DevelopersController {
 
         model.addAttribute("developer", newDeveloper);
         model.addAttribute("skills", skillRepository.findAll());
-        return "redirect:/developer/" + newDeveloper.getId();
+        return "redirect:/developers/" + newDeveloper.getId();
     }
 
-    @RequestMapping(value="/developer/{id}/skills", method=RequestMethod.POST)
+    @RequestMapping(value="/developers/{id}/skills", method=RequestMethod.POST)
     public String developersAddSkill(@PathVariable Long id, @RequestParam(required = false) Long skillId, Model model) {
 
         Skill skill;
@@ -65,9 +65,9 @@ public class DevelopersController {
                 developer.getSkills().add(skill);
             }
             developerRepository.save(developer);
-            model.addAttribute("developer", developerRepository.findOne(id));
+            model.addAttribute("developers", developerRepository.findOne(id));
             model.addAttribute("skills", skillRepository.findAll());
-            return "redirect:/developer/" + developer.getId();
+            return "redirect:/developers/" + developer.getId();
         }
 
         model.addAttribute("developers", developerRepository.findAll());

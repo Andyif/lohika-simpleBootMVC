@@ -1,44 +1,64 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Developers database</title>
+    <title>Developer</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-<h1>Developers</h1>
-<table>
-    <tr>
-        <th>Name</th>
-        <th>Skills</th>
-        <th></th>
-    </tr>
-    <tr th:each="developer : ${developers}">
-        <td th:text="${developer.firstName + ' ' + developer.lastName}"></td>
-        <td>
+<div th:if="${developer != null}">
+    <h1>Developer</h1>
+    Name: <b th:text="${developer.firstName}" /> <b th:text="${developer.lastName}" /><br/>
+    Email: <span th:text="${developer.email}" /><br/>
+    Skills:
+            <span th:each="skill : ${developer.skills}">
+                <br/>&nbsp;&nbsp;<span th:text="${skill.label}" /> - <span th:text="${skill.description}" />
+            </span>
+    <form th:action="@{/developers/{id}/skills(id=${developer.id})}" method="post" enctype="multipart/form-data" >
+        <select name="skillId">
+            <option th:each="skill : ${skills}"
+                    th:value="${skill.id}"
+                    th:text="${skill.description}">Skill</option>
+        </select>
+        <input type="submit" value="Add skill"/>
+    </form>
+    <a th:href="@{/skills}">Create skills</a>
+</div>
+<div th:if="${developers != null}">
+    <h1>Developers</h1>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Skills</th>
+            <th></th>
+        </tr>
+        <tr th:each="developer : ${developers}">
+            <td th:text="${developer.firstName + ' ' + developer.lastName}"></td>
+            <td>
 				<span th:each="skill,iterStat : ${developer.skills}">
 					<span th:text="${skill.label}"/><th:block th:if="${!iterStat.last}">,</th:block>
 				</span>
-        </td>
-        <td>
-            <a th:href="@{/developer/{id}(id=${developer.id})}">view</a>
-        </td>
-    </tr>
-</table>
-<hr/>
-<form th:action="@{/developers}" method="post" enctype="multipart/form-data">
-    <div>
-        First name: <input name="firstName" />
-    </div>
-    <div>
-        Last name: <input name="lastName" />
-    </div>
-    <div>
-        Email: <input name="email" />
-    </div>
-    <div>
-        <input type="submit" value="Create developer" name="button"/>
-    </div>
-</form>
-<a th:href="@{/skills}">Create skills</a>
+            </td>
+            <td>
+                <a th:href="@{/developers/{id}(id=${developer.id})}">view</a>
+            </td>
+        </tr>
+    </table>
+    <hr/>
+    <form th:action="@{/developers}" method="post" enctype="multipart/form-data">
+        <div>
+            First name: <input name="firstName" />
+        </div>
+        <div>
+            Last name: <input name="lastName" />
+        </div>
+        <div>
+            Email: <input name="email" />
+        </div>
+        <div>
+            <input type="submit" value="Create developer" name="button"/>
+        </div>
+    </form>
+    <a th:href="@{/skills}">Create skills</a>
+</div>
 </body>
 </html>
