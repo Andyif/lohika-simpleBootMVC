@@ -10,6 +10,7 @@ public class Skill {
     @Id
     @GeneratedValue
     private Long    id;
+
     private String  label;
     private String  description;
 
@@ -44,5 +45,24 @@ public class Skill {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Skill skill = (Skill) o;
+
+        if (!label.equals(skill.label)) return false;
+        return !(description != null ? !description.equals(skill.description) : skill.description != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = label.hashCode();
+        result = 31 * result + (description != null ? description.hashCode() : 0);
+        return result;
     }
 }
