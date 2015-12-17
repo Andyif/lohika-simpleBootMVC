@@ -1,5 +1,6 @@
 package com.amaydanskiy.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -10,7 +11,7 @@ public class Skill {
     @Id
     @GeneratedValue
     private Long    id;
-
+    @Column(nullable = false)
     private String  label;
     private String  description;
 

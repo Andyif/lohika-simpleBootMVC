@@ -5,6 +5,8 @@ import com.amaydanskiy.model.Skill;
 import com.amaydanskiy.repository.DeveloperRepository;
 import com.amaydanskiy.repository.SkillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
 @Controller
+@RequestMapping("/developers")
 public class DevelopersController {
     @Autowired
     DeveloperRepository developerRepository;
@@ -21,20 +24,22 @@ public class DevelopersController {
     @Autowired
     SkillRepository skillRepository;
 
-    @RequestMapping(value = "/developers/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String editDeveloper(@PathVariable Long id, Model model){
         model.addAttribute("developer", developerRepository.findOne(id));
         model.addAttribute("skills", skillRepository.findAll());
         return "developers";
     }
 
-    @RequestMapping(value = "/developers",method = RequestMethod.GET)
-    public String developerList(Model model){
-        model.addAttribute("developers", developerRepository.findAll());
+    @RequestMapping(method = RequestMethod.GET)
+    public String developerList( Model model){
+//        System.out.println(pageable);
+        Pageable pageable1 = new PageRequest(0, 2);
+        model.addAttribute("developers", developerRepository.findAll(pageable1));
         return "developers";
     }
 
-    @RequestMapping(value="/developers", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     public String addDeveloper(@RequestParam String email,     @RequestParam String firstName,
                                 @RequestParam String lastName,  Model model){
         Developer newDeveloper = new Developer();
@@ -48,7 +53,7 @@ public class DevelopersController {
         return "redirect:/developers/" + newDeveloper.getId();
     }
 
-    @RequestMapping(value="/developers/{id}/skills", method=RequestMethod.POST)
+    @RequestMapping(value="/{id}/skills", method=RequestMethod.POST)
     public String developersAddSkill(@PathVariable Long id, @RequestParam(required = false) Long skillId, Model model) {
 
         Skill skill;
@@ -73,17 +78,5 @@ public class DevelopersController {
 
         model.addAttribute("developers", developerRepository.findAll());
         return "redirect:/developers";
-    }
-
-    @RequestMapping(value = "/skills")
-    public String skillsAdd(@RequestParam(required = false) String label,
-                            @RequestParam(required = false) String description, Model model){
-        Skill skill = new Skill();
-        skill.setLabel(label);
-        skill.setDescription(description);
-        skillRepository.save(skill);
-
-        model.addAttribute("skills", skillRepository.findAll());
-        return "/skills";
     }
 }

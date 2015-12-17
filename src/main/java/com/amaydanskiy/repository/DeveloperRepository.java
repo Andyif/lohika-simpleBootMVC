@@ -1,7 +1,15 @@
 package com.amaydanskiy.repository;
 
 import com.amaydanskiy.model.Developer;
+import com.amaydanskiy.model.Skill;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
-public interface DeveloperRepository extends CrudRepository<Developer, Long>{
+import java.util.List;
+
+public interface DeveloperRepository extends PagingAndSortingRepository<Developer, Long> {
+    Page<Developer> findByIdOrderByIdAscAllIgnoreCase(Pageable pageable);
+    List<Developer> findBySkillsOrderByIdAscAllIgnoreCase(Skill skill);
 }

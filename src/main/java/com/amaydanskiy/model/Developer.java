@@ -2,18 +2,16 @@ package com.amaydanskiy.model;
 
 import com.amaydanskiy.model.Skill;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
 public class Developer {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long        id;
+    @Column(nullable = false)
     private String      firstName;
     private String      lastName;
     private String      email;
