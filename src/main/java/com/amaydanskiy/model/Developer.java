@@ -70,12 +70,9 @@ public class Developer {
     }
 
     public boolean hasSkill(final Skill skill){
-        for (Skill containedSkill : getSkills()){
-            if (containedSkill.getId() == skill.getId()){
-                return true;
-            }
-        }
-        return false;
+
+        return getSkills().stream().anyMatch(s -> s.equals(skill));
+
     }
 
 
