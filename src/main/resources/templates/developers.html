@@ -9,7 +9,7 @@
           />
 </head>
 <body>
-<div class="container">
+<div class="container" th:if="${developers != null}">
 
     <nav class="navbar navbar-default">
         <div class="container-fluid">
@@ -40,7 +40,7 @@
                         </span>
                     </td>
                     <td>
-                        <a th:href="@{/developer/{id}(id=${developer.id})}">view</a>
+                        <a th:href="@{/developers/{id}(id=${developer.id})}">view</a>
                     </td>
                 </tr>
             </table>
@@ -97,9 +97,6 @@
         <input type="submit" value="Add skill"/>
     </form>
     <a th:href="@{/skills}">Create skills</a>
-</div>
-<div th:if="${developers != null}">
-    
 </div>
 </body>
 </html>
