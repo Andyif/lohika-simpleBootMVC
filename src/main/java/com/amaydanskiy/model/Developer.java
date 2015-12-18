@@ -75,5 +75,26 @@ public class Developer {
 
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
+        Developer developer = (Developer) o;
+
+        if (!firstName.equals(developer.firstName)) return false;
+        if (lastName != null ? !lastName.equals(developer.lastName) : developer.lastName != null) return false;
+        if (email != null ? !email.equals(developer.email) : developer.email != null) return false;
+        return skills != null ? skills.equals(developer.skills) : developer.skills == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = firstName.hashCode();
+        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
+        result = 31 * result + (email != null ? email.hashCode() : 0);
+        result = 31 * result + (skills != null ? skills.hashCode() : 0);
+        return result;
+    }
 }

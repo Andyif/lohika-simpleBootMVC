@@ -54,8 +54,34 @@
                 <li><a href="#">5</a></li>
             </ul>
         </div>
-        <hr/>
-        <form th:action="@{/developers}" method="post" enctype="multipart/form-data" class="container">
+        <!-- Pagination Bar -->
+        <div class="pagination-centered text-center">
+            <ul class="pagination">
+                <li th:class="${page.firstPage}? 'disabled' : ''">
+                    <span th:if="${page.firstPage}">← First</span>
+                    <a th:if="${not page.firstPage}" th:href="@{${page.url}(page.page=1,page.size=${page.size})}">← First</a>
+                </li>
+                <li th:class="${page.hasPreviousPage}? '' : 'disabled'">
+                    <span th:if="${not page.hasPreviousPage}">«</span>
+                    <a th:if="${page.hasPreviousPage}" th:href="@{${page.url}(page.page=${page.number-1},page.size=${page.size})}" title="Go to previous page">«</a>
+                </li>
+                <li th:each="item : ${page.items}" th:class="${item.current}? 'active' : ''">
+                    <span th:if="${item.current}" th:text="${item.number}">1</span>
+                    <a th:if="${not item.current}" th:href="@{${page.url}(page.page=${item.number},page.size=${page.size})}"><span th:text="${item.number}">1</span></a>
+                </li>
+                <li th:class="${page.hasNextPage}? '' : 'disabled'">
+                    <span th:if="${not page.hasNextPage}">»</span>
+                    <a th:if="${page.hasNextPage}" th:href="@{${page.url}(page.page=${page.number+1},page.size=${page.size})}" title="Go to next page">»</a>
+                </li>
+                <li th:class="${page.lastPage}? 'disabled' : ''">
+                    <span th:if="${page.lastPage}">Last →</span>
+                    <a th:if="${not page.lastPage}" th:href="@{${page.url}(page.page=${page.totalPages},page.size=${page.size})}">Last →</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <hr/>
+    <form th:action="@{/developers}" method="post" enctype="multipart/form-data" class="container">
             <div class="col-lg-12">
                 <div class="col-lg-2 text-right">
                     First name:
@@ -87,7 +113,6 @@
                 </div>
             </div>
         </form>
-    </div>
 </div>
 <div th:if="${developer != null}">
     <h1>Developer</h1>
