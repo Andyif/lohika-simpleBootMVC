@@ -4,6 +4,7 @@ import com.amaydanskiy.model.Developer;
 import com.amaydanskiy.model.Skill;
 import com.amaydanskiy.repository.DeveloperRepository;
 import com.amaydanskiy.repository.SkillRepository;
+import com.amaydanskiy.service.PageWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -32,10 +33,17 @@ public class DevelopersController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public String developerList( Model model){
+    public String developerList( Model model, Pageable pageable){
+        if (pageable != null){
+            System.out.println("===> " + pageable.getOffset() +"-"+ pageable.getPageNumber() + "-"+ pageable.getPageSize() + "-"+ pageable.getSort() + " <===");
+            PageWrapper<Developer> pageWrapper = new PageWrapper<>(developerRepository.findAll(pageable), "developers");
+            model.addAttribute("developers", pageWrapper.getContent());
+            model.addAttribute("page", pageWrapper);
+        }else {
+            model.addAttribute("developers", developerRepository.findAll());
+        }
 //        System.out.println(pageable);
-        Pageable pageable1 = new PageRequest(0, 2);
-        model.addAttribute("developers", developerRepository.findAll(pageable1));
+//        Pageable pageable1 = new PageRequest(0, 2);
         return "developers";
     }
 

@@ -9,7 +9,7 @@
           />
 </head>
 <body>
-<div class="container" th:if="${developers != null}">
+<div class="container" th:if="${developers != null or page != null}">
 
     <nav class="navbar navbar-default">
         <div class="container-fluid">
@@ -45,15 +45,6 @@
                 </tr>
             </table>
         </div>
-        <div class="pagination-centered text-center">
-            <ul class="pagination">
-                <li><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-            </ul>
-        </div>
         <!-- Pagination Bar -->
         <div class="pagination-centered text-center">
             <ul class="pagination">
@@ -66,8 +57,8 @@
                     <a th:if="${page.hasPreviousPage}" th:href="@{${page.url}(page.page=${page.number-1},page.size=${page.size})}" title="Go to previous page">«</a>
                 </li>
                 <li th:each="item : ${page.items}" th:class="${item.current}? 'active' : ''">
-                    <span th:if="${item.current}" th:text="${item.number}">1</span>
-                    <a th:if="${not item.current}" th:href="@{${page.url}(page.page=${item.number},page.size=${page.size})}"><span th:text="${item.number}">1</span></a>
+                    <span th:if="${item.current}" th:text="${item.number}"></span>
+                    <a th:if="${not item.current}" th:href="@{${page.url}(page.page=${item.number},page.size=${page.size})}"><span th:text="${item.number}"></span></a>
                 </li>
                 <li th:class="${page.hasNextPage}? '' : 'disabled'">
                     <span th:if="${not page.hasNextPage}">»</span>
