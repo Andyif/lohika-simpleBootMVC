@@ -8,6 +8,7 @@ import com.amaydanskiy.service.PageWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
+
+import javax.websocket.server.PathParam;
 
 @Controller
 @RequestMapping("/developers")
@@ -33,14 +36,14 @@ public class DevelopersController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public String developerList( Model model, Pageable pageable){
+    public String developerList( Model model, @PageableDefault(page = 0, size = 2) Pageable pageable){
         if (pageable != null){
             System.out.println("===> " + pageable.getOffset() +"-"+ pageable.getPageNumber() + "-"+ pageable.getPageSize() + "-"+ pageable.getSort() + " <===");
             PageWrapper<Developer> pageWrapper = new PageWrapper<>(developerRepository.findAll(pageable), "developers");
             model.addAttribute("developers", pageWrapper.getContent());
             model.addAttribute("page", pageWrapper);
         }else {
-            model.addAttribute("developers", developerRepository.findAll());
+//            model.addAttribute("developers", developerRepository.findAll());
         }
 //        System.out.println(pageable);
 //        Pageable pageable1 = new PageRequest(0, 2);
