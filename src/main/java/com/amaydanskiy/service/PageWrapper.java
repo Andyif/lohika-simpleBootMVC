@@ -25,18 +25,18 @@ public class PageWrapper<T> {
         this.url = url;
         items = new ArrayList<PageItem>();
 
-        currentNumber = page.getNumber() + 1; //start from 1 to match page.page
+        currentNumber = page.getNumber(); //start from 1 to match page.page
 
         int start, size;
         if (page.getTotalPages() <= MAX_PAGE_ITEM_DISPLAY){
-            start = 1;
+            start = 0;
             size = page.getTotalPages();
         } else {
             if (currentNumber <= MAX_PAGE_ITEM_DISPLAY - MAX_PAGE_ITEM_DISPLAY/2){
-                start = 1;
+                start = 0;
                 size = MAX_PAGE_ITEM_DISPLAY;
             } else if (currentNumber >= page.getTotalPages() - MAX_PAGE_ITEM_DISPLAY/2){
-                start = page.getTotalPages() - MAX_PAGE_ITEM_DISPLAY + 1;
+                start = page.getTotalPages() - MAX_PAGE_ITEM_DISPLAY;
                 size = MAX_PAGE_ITEM_DISPLAY;
             } else {
                 start = currentNumber - MAX_PAGE_ITEM_DISPLAY/2;
