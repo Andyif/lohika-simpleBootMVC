@@ -6,7 +6,6 @@ import com.amaydanskiy.repository.DeveloperRepository;
 import com.amaydanskiy.repository.SkillRepository;
 import com.amaydanskiy.service.PageWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
@@ -15,18 +14,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
-
-import javax.websocket.server.PathParam;
 
 @Controller
 @RequestMapping("/developers")
 public class DevelopersController {
     @Autowired
-    DeveloperRepository developerRepository;
+    private DeveloperRepository developerRepository;
 
     @Autowired
-    SkillRepository skillRepository;
+    private SkillRepository skillRepository;
 
     @RequestMapping(method = RequestMethod.GET)
     public String developerList( Model model, @PageableDefault(page = 0, size = 2) Pageable pageable){

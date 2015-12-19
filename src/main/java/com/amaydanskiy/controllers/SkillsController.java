@@ -1,7 +1,6 @@
 package com.amaydanskiy.controllers;
 
 import com.amaydanskiy.model.Skill;
-import com.amaydanskiy.repository.DeveloperRepository;
 import com.amaydanskiy.repository.SkillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
