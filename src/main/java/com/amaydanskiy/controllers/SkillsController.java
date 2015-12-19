@@ -14,13 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/skills")
 public class SkillsController {
 
-//    private DeveloperRepository developerRepository;
     private SkillRepository skillRepository;
 
-//    @Autowired
-//    public void setDeveloperRepository(DeveloperRepository developerRepository) {
-//        this.developerRepository = developerRepository;
-//    }
 
     @Autowired
     public void setSkillRepository(SkillRepository skillRepository) {
@@ -30,7 +25,7 @@ public class SkillsController {
     @RequestMapping(method = RequestMethod.GET)
     public String skills(Model model){
         model.addAttribute("skills", skillRepository.findAll());
-        return "/skills";
+        return "skills";
     }
 
     @RequestMapping(method = RequestMethod.POST)
@@ -41,6 +36,6 @@ public class SkillsController {
         skillRepository.save(newSkill);
 
         model.addAttribute("skills", skillRepository.findAll());
-        return "/skills";
+        return "skills";
     }
 }

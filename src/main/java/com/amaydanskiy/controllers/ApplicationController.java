@@ -12,7 +12,6 @@ public class ApplicationController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String showDevelopers(RedirectAttributes redirectAttributes){
-        //redirectAttributes.addAttribute("pageable", new PageRequest(1, 2));
         return "redirect:/developers?page=0&size=2";
     }
 }
