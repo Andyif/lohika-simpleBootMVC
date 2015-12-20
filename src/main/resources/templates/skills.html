@@ -3,32 +3,89 @@
 <head>
     <title>Skills database</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <!-- Bootstrap -->
+    <link rel="stylesheet" type="text/css" media="all"
+          href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.1/css/bootstrap.min.css"/>
 </head>
 <body>
-<h1>Skills</h1>
-<table>
-    <tr>
-        <th>Label</th>
-        <th>Description</th>
-        <th></th>
-    </tr>
-    <tr th:each="skill : ${skills}">
-        <td th:text="${skill.label}"></td>
-        <td th:text="${skill.description}"></td>
-    </tr>
-</table>
-<hr/>
-<form th:action="@{/skills}" method="post" enctype="multipart/form-data">
-    <div>
-        Label: <input name="label" />
+    <div class="container">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a th:href="@{/developers}">Developers</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="jumbotron">
+            <h1>Skills</h1>
+            <div th:if="!${#lists.isEmpty(skills)}">
+                <table class="container table">
+                    <tr>
+                        <th class="col-lg-3">Label</th>
+                        <th class="col-lg-7">Description</th>
+                        <th class="col-lg-2"></th>
+                    </tr>
+                    <tr th:each="skill : ${skills}">
+                        <td th:text="${skill.label}"></td>
+                        <td th:text="${skill.description}"></td>
+                    </tr>
+                </table>
+            </div>
+            <!-- Pagination Bar -->
+            <div class="pagination-centered text-center">
+                <ul class="pagination">
+                    <li th:class="${page.firstPage}? 'disabled' : ''">
+                        <span th:if="${page.firstPage}">← First</span>
+                        <a th:if="${not page.firstPage}" th:href="@{${page.url}(page=0,size=${page.size})}">← First</a>
+                    </li>
+                    <li th:class="${page.hasPreviousPage}? '' : 'disabled'">
+                        <span th:if="${not page.hasPreviousPage}">«</span>
+                        <a th:if="${page.hasPreviousPage}" th:href="@{${page.url}(page=${page.number-1},size=${page.size})}" title="Go to previous page">«</a>
+                    </li>
+                    <li th:each="item : ${page.items}" th:class="${item.current}? 'active' : ''">
+                        <span th:if="${item.current}" th:text="${item.number+1}"></span>
+                        <a th:if="${not item.current}" th:href="@{${page.url}(page=${item.number},size=${page.size})}"><span th:text="${item.number+1}"></span></a>
+                    </li>
+                    <li th:class="${page.hasNextPage}? '' : 'disabled'">
+                        <span th:if="${not page.hasNextPage}">»</span>
+                        <a th:if="${page.hasNextPage}" th:href="@{${page.url}(page=${page.number+1},size=${page.size})}" title="Go to next page">»</a>
+                    </li>
+                    <li th:class="${page.lastPage}? 'disabled' : ''">
+                        <span th:if="${page.lastPage}">Last →</span>
+                        <a th:if="${not page.lastPage}" th:href="@{${page.url}(page=${page.totalPages-1},size=${page.size})}">Last →</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <hr/>
+        <form th:action="@{/skills}" method="post" enctype="multipart/form-data" class="container">
+            <div class="col-lg-12">
+                <div class="col-lg-2 text-right">
+                    Label:
+                </div>
+                <div class="col-lg-10">
+                    <input name="label" class="form-control" />
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="col-lg-2 text-right">
+                    Description:
+                </div>
+                <div class="col-lg-10">
+                    <input name="description" class="form-control" />
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="col-lg-2 text-right">
+                    <input type="submit" value="Create skill" name="button" class="btn btn-primary"/>
+                </div>
+            </div>
+        </form>
     </div>
-    <div>
-        Description: <input name="description" />
-    </div>
-    <div>
-        <input type="submit" value="Create skill" name="button"/>
-    </div>
-</form>
-<a th:href="@{/developers}">Developers</a>
 </body>
 </html>

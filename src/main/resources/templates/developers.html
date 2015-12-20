@@ -5,16 +5,18 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <!-- Bootstrap -->
     <link rel="stylesheet" type="text/css" media="all"
-          href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.1/css/bootstrap.min.css"
-          />
+          href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.1/css/bootstrap.min.css"/>
 </head>
 <body>
-<div class="container" th:if="${developers != null or page != null}">
 
+<div class="container">
     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
+                    <li th:if="${developer != null}">
+                        <a th:href="@{/developers}">Show developers</a>
+                    </li>
                     <li>
                         <a th:href="@{/skills}">Create skills</a>
                     </li>
@@ -22,6 +24,9 @@
             </div>
         </div>
     </nav>
+</div>
+
+<div class="container" th:if="${developers != null or page != null}">
 
     <div class="jumbotron" >
         <h1>Developers</h1>
@@ -99,29 +104,46 @@
             </div>
 
             <div class="col-lg-12">
-                <div class="col-lg-2">
+                <div class="col-lg-2 text-right">
                     <input type="submit" value="Create developer" name="button" class="btn btn-primary"/>
                 </div>
             </div>
         </form>
 </div>
-<div th:if="${developer != null}">
-    <h1>Developer</h1>
-    Name: <b th:text="${developer.firstName}" /> <b th:text="${developer.lastName}" /><br/>
-    Email: <span th:text="${developer.email}" /><br/>
-    Skills:
-            <span th:each="skill : ${developer.skills}">
-                <br/>&nbsp;&nbsp;<span th:text="${skill.label}" /> - <span th:text="${skill.description}" />
-            </span>
-    <form th:action="@{/developers/{id}/skills(id=${developer.id})}" method="post" enctype="multipart/form-data" >
-        <select name="skillId">
-            <option th:each="skill : ${skills}"
-                    th:value="${skill.id}"
-                    th:text="${skill.description}">Skill</option>
-        </select>
-        <input type="submit" value="Add skill"/>
-    </form>
-    <a th:href="@{/skills}">Create skills</a>
+<div class="container" th:if="${developer != null}">
+    <div class="jumbotron">
+        <h1>Developer</h1>
+        <div class="col-lg-1">
+            Name:
+        </div>
+        <div class="col-lg-11">
+            <b th:text="${developer.firstName}"></b> <b th:text="${developer.lastName}"></b><br/>
+        </div>
+        <div class="col-lg-1">
+            Email:
+        </div>
+        <div class="col-lg-11">
+            <b th:text="${developer.email}"></b><br/>
+        </div>
+        <div class="col-lg-1">
+            Skills:
+        </div>
+        <div>
+            <ul>
+                <span th:each="skill : ${developer.skills}">
+                    <br/>&nbsp;&nbsp;<li><span th:text="${skill.label}" /> - <span th:text="${skill.description}" /></li>
+                </span>
+            </ul>
+        </div>
+        <form th:action="@{/developers/{id}/skills(id=${developer.id})}" method="post" enctype="multipart/form-data" >
+            <select name="skillId">
+                <option th:each="skill : ${skills}"
+                        th:value="${skill.id}"
+                        th:text="${skill.label}">Skill</option>
+            </select>
+            <input type="submit" value="Add skill"/>
+        </form>
+    </div>
 </div>
 </body>
 </html>
