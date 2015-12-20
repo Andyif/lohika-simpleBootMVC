@@ -7,4 +7,4 @@ Run application:
   3. Issue command line command "mvn package"
   4. In case of successful build open target dir.
   5. Run "java -jar restfulltest-1.0.jar" and wait until application is deployed
-  6. Open any web browser open Link - <a href="http://localhost:8080/" target="_blank">http://localhost:8080/</a>
+  6. Open any web browser, and go to page - <a href="http://localhost:8080/" target="_blank">http://localhost:8080/</a>
