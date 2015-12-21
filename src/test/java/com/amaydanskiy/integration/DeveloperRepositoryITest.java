@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = {RepositoryConfiguration.class})
-public class DeveloperRepositoryIT {
+public class DeveloperRepositoryITest {
 
     private DeveloperRepository developerRepository;
     private SkillRepository skillRepository;
