@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = {RepositoryConfiguration.class})
-public class SkillRepositoryIT {
+public class SkillRepositoryITest {
 
     private SkillRepository skillRepository;
 
@@ -50,17 +50,17 @@ public class SkillRepositoryIT {
         skillRepository.save(deleteSkill);
         Assert.assertNotNull(deleteSkill.getId());
         long skillCount = skillRepository.count();
-        Assert.assertEquals(skillCount, 2);
+        Assert.assertEquals(skillCount, 4);
 
         skillRepository.delete(deleteSkill);
         skillCount = skillRepository.count();
-        Assert.assertEquals(skillCount, 1);
+        Assert.assertEquals(skillCount, 3);
 
         long count = 0;
         Iterable <Skill> skills = skillRepository.findAll();
         for (Skill s : skills){
             count++;
         }
-        Assert.assertEquals(count, 1);
+        Assert.assertEquals(count, 3);
     }
 }
