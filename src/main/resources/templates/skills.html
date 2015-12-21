@@ -6,6 +6,8 @@
     <!-- Bootstrap -->
     <link rel="stylesheet" type="text/css" media="all"
           href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.1/css/bootstrap.min.css"/>
+    <!--js-->
+    <script type="text/javascript" th:src="@{/js/app.js}" ></script>
 </head>
 <body>
     <div class="container">
@@ -63,7 +65,7 @@
             </div>
         </div>
         <hr/>
-        <form th:action="@{/skills}" method="post" enctype="multipart/form-data" class="container">
+        <form th:action="@{/skills}" name="skillForm" method="post" enctype="multipart/form-data" class="container" onsubmit="return validateSkillForm()">
             <div class="col-lg-12">
                 <div class="col-lg-2 text-right">
                     Label:

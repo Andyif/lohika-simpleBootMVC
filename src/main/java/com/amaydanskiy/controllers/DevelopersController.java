@@ -72,8 +72,8 @@ public class DevelopersController {
         if (developer != null) {
             if (!developer.hasSkill(skill)) {
                 developer.getSkills().add(skill);
+                developerRepository.save(developer);
             }
-            developerRepository.save(developer);
             model.addAttribute("developer", developerRepository.findOne(id));
             model.addAttribute("skills", skillRepository.findAll());
             return "redirect:/developers/" + developer.getId();
