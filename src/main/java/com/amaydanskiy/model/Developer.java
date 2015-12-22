@@ -15,7 +15,7 @@ public class Developer {
     private String      firstName;
     private String      lastName;
     private String      email;
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     private List<Skill> skills;
 
     public Developer() {

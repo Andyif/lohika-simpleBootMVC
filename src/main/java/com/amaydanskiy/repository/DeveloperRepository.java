@@ -10,5 +10,5 @@ import java.util.List;
 
 public interface DeveloperRepository extends PagingAndSortingRepository<Developer, Long> {
     Page<Developer> findByIdOrderByIdAscAllIgnoreCase(Pageable pageable);
-    List<Developer> findBySkillsOrderByIdAscAllIgnoreCase(Skill skill);
+    List<Developer> findBySkillsLabelOrderByIdAscAllIgnoreCase(String label);
 }
