@@ -6,6 +6,7 @@ import com.amaydanskiy.model.Skill;
 import com.amaydanskiy.repository.SkillRepository;
 import com.amaydanskiy.integration.configuration.RepositoryConfiguration;
 import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +20,12 @@ import java.util.ArrayList;
 @SpringApplicationConfiguration(classes = {RepositoryConfiguration.class})
 public class DeveloperRepositoryITest {
 
-    private DeveloperRepository developerRepository;
-    private SkillRepository skillRepository;
+    private static DeveloperRepository developerRepository;
+    private static SkillRepository skillRepository;
+
+    private final static Skill skill1 = new Skill();
+    private final static Skill skill2 = new Skill();
+    private final static Developer developer = new Developer();
 
     @Autowired
     public void setDeveloperRepository(DeveloperRepository developerRepository){
@@ -32,20 +37,15 @@ public class DeveloperRepositoryITest {
         this.skillRepository = skillRepository;
     }
 
-    @Test
-    @Transactional
-    public void testCRUDDeveloper(){
-        Skill skill1 = new Skill();
+    @BeforeClass
+    public static void setUp(){
         skill1.setLabel("test1label");
         skill1.setDescription("tst1Description");
         skillRepository.save(skill1);
 
-        Skill skill2 = new Skill();
         skill2.setLabel("test2label");
         skill2.setDescription("tst2Description");
         skillRepository.save(skill2);
-
-        Developer developer = new Developer();
 
         developer.setEmail("test@mail.com");
         developer.setFirstName("testFirstName");
@@ -54,6 +54,11 @@ public class DeveloperRepositoryITest {
             add(skill1);
             add(skill2);
         }});
+    }
+
+    @Test
+    @Transactional
+    public void testCRUDDeveloper(){
 
         Assert.assertNull(developer.getId());
         developerRepository.save(developer);
