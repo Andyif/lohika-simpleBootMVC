@@ -5,6 +5,7 @@ import com.amaydanskiy.model.Skill;
 import com.amaydanskiy.repository.DeveloperRepository;
 import com.amaydanskiy.repository.SkillRepository;
 import com.amaydanskiy.service.PageWrapper;
+import com.amaydanskiy.service.TransactionalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -76,6 +77,9 @@ public class DevelopersController {
             }
             model.addAttribute("developer", developerRepository.findOne(id));
             model.addAttribute("skills", skillRepository.findAll());
+
+            new TransactionalService().getAll(developerRepository, skillRepository);
+
             return "redirect:/developers/" + developer.getId();
         }
 

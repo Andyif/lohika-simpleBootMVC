@@ -21,23 +21,14 @@ import java.util.ArrayList;
 @SpringApplicationConfiguration(classes = {RepositoryConfiguration.class})
 public class DeveloperRepositoryITest {
 
+    @Autowired
     private DeveloperRepository developerRepository;
+    @Autowired
     private SkillRepository skillRepository;
 
     private final Skill skill1 = new Skill();
     private final Skill skill2 = new Skill();
     private final Developer developer = new Developer();
-
-    @Autowired
-    public void setDeveloperRepository(DeveloperRepository developerRepository, SkillRepository skillRepository){
-        this.developerRepository = developerRepository;
-        this.skillRepository = skillRepository;
-    }
-
-//    @Autowired
-//    public void setSkillRepository(SkillRepository skillRepository){
-//        this.skillRepository = skillRepository;
-//    }
 
     @Before
     public void setUp(){

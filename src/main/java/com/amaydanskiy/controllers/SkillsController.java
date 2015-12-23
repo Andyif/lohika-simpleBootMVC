@@ -18,13 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/skills")
 public class SkillsController {
 
-    private SkillRepository skillRepository;
-
-
     @Autowired
-    public void setSkillRepository(SkillRepository skillRepository) {
-        this.skillRepository = skillRepository;
-    }
+    private SkillRepository skillRepository;
 
     @RequestMapping(method = RequestMethod.GET)
     public String skills(Model model, @PageableDefault(page = 0, size = 2) Pageable pageable){
