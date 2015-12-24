@@ -25,6 +25,9 @@ public class SkillRepositoryITest {
 
     @Before
     public void setUp(){
+
+        this.skillRepository.deleteAll();
+
         skill.setLabel("testLabel");
         skill.setDescription("testDescription");
     }
@@ -64,11 +67,11 @@ public class SkillRepositoryITest {
         skillRepository.save(deleteSkill);
         Assert.assertNotNull(deleteSkill.getId());
         long skillCount = skillRepository.count();
-        Assert.assertEquals(9, skillCount);
+        Assert.assertEquals(1, skillCount);
 
         skillRepository.delete(deleteSkill);
         skillCount = skillRepository.count();
-        Assert.assertEquals(8, skillCount);
+        Assert.assertEquals(0, skillCount);
     }
 
     @Test
@@ -78,6 +81,6 @@ public class SkillRepositoryITest {
         for (Skill s : skills){
             count++;
         }
-        Assert.assertEquals(8, count);
+        Assert.assertEquals(0, count);
     }
 }

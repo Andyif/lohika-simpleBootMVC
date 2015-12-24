@@ -5,10 +5,7 @@ import com.amaydanskiy.repository.DeveloperRepository;
 import com.amaydanskiy.model.Skill;
 import com.amaydanskiy.repository.SkillRepository;
 import com.amaydanskiy.integration.configuration.RepositoryConfiguration;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
@@ -32,6 +29,10 @@ public class DeveloperRepositoryITest {
 
     @Before
     public void setUp(){
+
+        this.developerRepository.deleteAll();
+        this.skillRepository.deleteAll();
+
         skill1.setLabel("test1label");
         skill1.setDescription("tst1Description");
         this.skillRepository.save(skill1);
@@ -47,6 +48,12 @@ public class DeveloperRepositoryITest {
             add(skill1);
             add(skill2);
         }});
+    }
+
+    @After
+    public void tearDown(){
+        this.developerRepository.deleteAll();
+        this.skillRepository.deleteAll();
     }
 
     @Test
@@ -87,11 +94,11 @@ public class DeveloperRepositoryITest {
         Assert.assertNotNull(deleteDeveloper.getId());
 
         long devCount = developerRepository.count();
-        Assert.assertEquals(3, devCount);
+        Assert.assertEquals(1, devCount);
 
         developerRepository.delete(deleteDeveloper);
         devCount = developerRepository.count();
-        Assert.assertEquals(2, devCount);
+        Assert.assertEquals(0, devCount);
     }
 
     @Test
