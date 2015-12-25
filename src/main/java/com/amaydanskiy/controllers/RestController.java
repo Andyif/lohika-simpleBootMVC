@@ -1,7 +1,6 @@
 package com.amaydanskiy.controllers;
 
 import com.amaydanskiy.model.Rest;
-import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
