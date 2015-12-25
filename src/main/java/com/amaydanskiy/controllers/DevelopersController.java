@@ -26,8 +26,8 @@ public class DevelopersController {
     private SkillRepository skillRepository;
 
     @RequestMapping(method = RequestMethod.GET)
-    public String developerList( Model model, @PageableDefault(page = 0, size = 2) Pageable pageable){
-        PageWrapper<Developer> pageWrapper = new PageWrapper<>(developerRepository.findAll(pageable), "developers");
+    public String showDevelopers( Model model, @PageableDefault(page = 0, size = 2) Pageable pageable){
+        final PageWrapper<Developer> pageWrapper = new PageWrapper<>(developerRepository.findAll(pageable), "developers");
         model.addAttribute("developers", pageWrapper.getContent());
         model.addAttribute("page", pageWrapper);
 
@@ -37,7 +37,7 @@ public class DevelopersController {
     @RequestMapping(method = RequestMethod.POST)
     public String addDeveloper(@RequestParam String email,     @RequestParam String firstName,
                                 @RequestParam String lastName,  Model model){
-        Developer newDeveloper = new Developer();
+        final Developer newDeveloper = new Developer();
         newDeveloper.setEmail(email);
         newDeveloper.setFirstName(firstName);
         newDeveloper.setLastName(lastName);
@@ -56,8 +56,19 @@ public class DevelopersController {
         return "developers";
     }
 
+    /**
+     *
+     * @param id - developer ID;
+     * @param skillId - skill ID;
+     * If skillId = null
+     * @return - skills page
+     * If developer != null, add skill to developer
+     * @return - developer page
+     * else
+     * @return - developers page
+     */
     @RequestMapping(value="/{id}/skills", method=RequestMethod.POST)
-    public String developersAddSkill(@PathVariable Long id,
+    public String developerAddSkill(@PathVariable Long id,
                                      @RequestParam(required = false) Long skillId, Model model) {
 
         Skill skill;

@@ -63,7 +63,7 @@ public class DeveloperRepositoryITest {
         developerRepository.save(developer);
         Assert.assertNotNull(developer.getId());
 
-        Developer fetchedDeveloper = developerRepository.findOne(developer.getId());
+        final Developer fetchedDeveloper = developerRepository.findOne(developer.getId());
         Assert.assertNotNull(fetchedDeveloper);
 
         Assert.assertEquals(developer.getId(), fetchedDeveloper.getId());
@@ -76,17 +76,17 @@ public class DeveloperRepositoryITest {
     @Test
     public void testUpdateDeveloper() {
         developerRepository.save(developer);
-        Developer fetchedDeveloper = developerRepository.findOne(developer.getId());
+        final Developer fetchedDeveloper = developerRepository.findOne(developer.getId());
         fetchedDeveloper.setEmail("abc@def.com");
         developerRepository.save(fetchedDeveloper);
 
-        Developer fetchedUpdatedDeveloper = developerRepository.findOne(fetchedDeveloper.getId());
+        final Developer fetchedUpdatedDeveloper = developerRepository.findOne(fetchedDeveloper.getId());
         Assert.assertEquals(fetchedUpdatedDeveloper.getEmail(), fetchedDeveloper.getEmail());
     }
 
     @Test
     public void testDeleteDeveloper() {
-        Developer deleteDeveloper = new Developer();
+        final Developer deleteDeveloper = new Developer();
         deleteDeveloper.setEmail("simple@mail.com");
         deleteDeveloper.setFirstName("name");
         deleteDeveloper.setLastName("lastName");
@@ -104,7 +104,7 @@ public class DeveloperRepositoryITest {
     @Test
     public void testDataPersistence(){
         developerRepository.save(developer);
-        Iterable<Developer> developers = developerRepository.findAll();
+        final Iterable<Developer> developers = developerRepository.findAll();
         long count = 0;
 
         for(Developer d : developers){

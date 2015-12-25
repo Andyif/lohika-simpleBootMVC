@@ -39,7 +39,7 @@ public class SkillRepositoryITest {
         skillRepository.save(skill);
         Assert.assertNotNull(skill.getId());
 
-        Skill fetchedSkill = skillRepository.findOne(skill.getId());
+        final Skill fetchedSkill = skillRepository.findOne(skill.getId());
         Assert.assertNotNull(fetchedSkill);
 
         Assert.assertEquals(fetchedSkill.getId(), skill.getId());
@@ -51,7 +51,7 @@ public class SkillRepositoryITest {
     public void testUpdateDeveloper() {
         skillRepository.save(skill);
 
-        Skill fetchedSkill = skillRepository.findOne(skill.getId());
+        final Skill fetchedSkill = skillRepository.findOne(skill.getId());
         fetchedSkill.setLabel("abcdefg");
         skillRepository.save(fetchedSkill);
 
@@ -61,7 +61,7 @@ public class SkillRepositoryITest {
 
     @Test
     public void testDeleteSkill() {
-        Skill deleteSkill = new Skill();
+        final Skill deleteSkill = new Skill();
         deleteSkill.setLabel("label");
         deleteSkill.setDescription("description");
         skillRepository.save(deleteSkill);
@@ -77,7 +77,7 @@ public class SkillRepositoryITest {
     @Test
     public void testDataPersistence(){
         long count = 0;
-        Iterable <Skill> skills = skillRepository.findAll();
+        final Iterable <Skill> skills = skillRepository.findAll();
         for (Skill s : skills){
             count++;
         }

@@ -21,28 +21,28 @@ public class DeveloperLoader implements ApplicationListener<ContextRefreshedEven
     @Autowired
     private SkillRepository skillRepository;
 
-    private Logger logger = Logger.getLogger(DeveloperLoader.class);
+    private final Logger logger = Logger.getLogger(DeveloperLoader.class);
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
 
-        Skill skill1 = new Skill();
+        final Skill skill1 = new Skill();
         skill1.setLabel("Java");
         skillRepository.save(skill1);
 
-        Skill skill2 = new Skill();
+        final Skill skill2 = new Skill();
         skill2.setLabel("javascript");
         skillRepository.save(skill2);
 
-        Skill skill3 = new Skill();
+        final Skill skill3 = new Skill();
         skill3.setLabel("C++");
         skillRepository.save(skill3);
 
-        Skill skill4 = new Skill();
+        final Skill skill4 = new Skill();
         skill4.setLabel("Python");
         skillRepository.save(skill4);
 
-        Developer developer1 = new Developer();
+        final Developer developer1 = new Developer();
         developer1.setFirstName("Andy");
         developer1.setSkills(new ArrayList<Skill>(){{
             add(skill1);
@@ -50,7 +50,7 @@ public class DeveloperLoader implements ApplicationListener<ContextRefreshedEven
         }});
         developerRepository.save(developer1);
 
-        Developer developer2 = new Developer();
+        final Developer developer2 = new Developer();
         developer2.setFirstName("Jhoe");
         developer2.setSkills(new ArrayList<Skill>(){{
             add(skill2);
@@ -58,7 +58,7 @@ public class DeveloperLoader implements ApplicationListener<ContextRefreshedEven
         }});
         developerRepository.save(developer2);
 
-        Developer developer3 = new Developer();
+        final Developer developer3 = new Developer();
         developer3.setFirstName("Jhoe");
         developer3.setSkills(new ArrayList<Skill>(){{
             add(skill3);
@@ -66,7 +66,7 @@ public class DeveloperLoader implements ApplicationListener<ContextRefreshedEven
         }});
         developerRepository.save(developer3);
 
-        Developer developer4 = new Developer();
+        final Developer developer4 = new Developer();
         developer4.setFirstName("Jhoe");
         developer4.setSkills(new ArrayList<Skill>(){{
             add(skill4);

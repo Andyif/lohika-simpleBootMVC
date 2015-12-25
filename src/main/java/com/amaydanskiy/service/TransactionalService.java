@@ -10,31 +10,24 @@ import java.util.List;
 
 public class TransactionalService {
 
-
     @Autowired
     private DeveloperRepository developerRepository;
     @Autowired
     private SkillRepository skillRepository;
 
-//    @Autowired
-//    public void setRepositories(DeveloperRepository developerRepository, SkillRepository skillRepository){
-//        this.developerRepository = developerRepository;
-//        this.skillRepository = skillRepository;
-//    }
-
 //    @Transactional
-    public void getAll(DeveloperRepository developerRepository, SkillRepository skillRepository){
+    public void getAll(final DeveloperRepository developerRepository, final SkillRepository skillRepository){
         Developer developer;
         List<Developer> listDev = (List<Developer>) developerRepository.findAll();
         listDev.stream().forEach(d ->{
-            System.out.println(d.getFirstName());
+            System.out.println("first name - " + d.getFirstName());
             d.getSkills().stream().forEach(System.out::println);
 
         });
 
 
         developer = developerRepository.findOne(1L);
-        developer.getSkills().stream().forEach(s -> s.getLabel());
+        developer.getSkills().stream().map(s -> s.getLabel());
         List<Skill> skillList = (List<Skill>) skillRepository.findAll();
         skillList.stream().forEach(System.out::println);
         developer.getSkills().get(0).getLabel();

@@ -23,7 +23,7 @@ public class SkillsController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String skills(Model model, @PageableDefault(page = 0, size = 2) Pageable pageable){
-        PageRequest pageRequest = new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Sort.Direction.ASC, "label");
+        final PageRequest pageRequest = new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Sort.Direction.ASC, "label");
         PageWrapper<Skill> pageWrapper = new PageWrapper<>(skillRepository.findAll(pageRequest), "skills");
         model.addAttribute("skills", pageWrapper.getContent());
         model.addAttribute("page", pageWrapper);
@@ -33,13 +33,13 @@ public class SkillsController {
     @RequestMapping(method = RequestMethod.POST)
     public String addSkills(@RequestParam String label, @RequestParam String description,
                             @PageableDefault(page = 0, size = 2) Pageable pageable, Model model){
-        Skill newSkill = new Skill();
+        final Skill newSkill = new Skill();
         newSkill.setLabel(label);
         newSkill.setDescription(description);
         skillRepository.save(newSkill);
 
         PageRequest pageRequest = new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), Sort.Direction.ASC, "label");
-        PageWrapper<Skill> pageWrapper = new PageWrapper<>(skillRepository.findAll(pageRequest), "skills");
+        final PageWrapper<Skill> pageWrapper = new PageWrapper<>(skillRepository.findAll(pageRequest), "skills");
         model.addAttribute("skills", pageWrapper.getContent());
         model.addAttribute("page", pageWrapper);
         return "skills";
