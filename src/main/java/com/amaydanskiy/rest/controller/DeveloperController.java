@@ -1,4 +1,4 @@
-package com.amaydanskiy.resr.controller;
+package com.amaydanskiy.rest.controller;
 
 
 import com.amaydanskiy.model.Developer;
